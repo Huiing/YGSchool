@@ -1,0 +1,88 @@
+//
+//  YGNetWorkManager.m
+//  YGSchool
+//
+//  Created by faith on 17/2/14.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#import "YGNetWorkManager.h"
+#import <AFNetworking.h>
+#import "YGApiConfig.h"
+@implementation YGNetWorkManager
+
+#pragma mark - get请求方式获取数据
++ (void)getNetWorkRequestUrlString:(NSString *)urlString
+                            params:(id)params success:(Completion)success
+                              fail:(FailError)fail;
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [self manager:manager];
+    [manager GET:urlString parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (success) {
+            success(responseObject);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"错误信息:%@",error);
+        if (fail) {
+            fail();
+        }
+    }];
+}
+//网络请求头部参数
++ (void)manager:(AFHTTPSessionManager *)manager
+{
+    //设置请求格式
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    //设置超时时间
+    manager.requestSerializer.timeoutInterval = 30;
+    NSSet *set = [NSSet setWithObjects:@"text/html",@"application/json", nil];
+    manager.responseSerializer.acceptableContentTypes = set;
+    //设置返回格式
+    AFJSONResponseSerializer *responseSerializer =[AFJSONResponseSerializer serializer];
+    responseSerializer.removesKeysWithNullValues = YES;
+    manager.responseSerializer = responseSerializer;
+}
+#pragma mark - post请求方式获取数据
++ (void)postDataWithURL:(NSString *)url postData:(NSDictionary *)parameters withHeader:(NSString *)header success:(Completion)success
+                     fail:(FailError)fail{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    NSString *urlString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    if (header == nil) {
+    }else{
+        manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    }
+    
+    [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)[task response];
+        NSInteger responseStatusCode = [httpResponse statusCode];
+        if (responseStatusCode == 200) {
+            // NSLog(@"data is %@",responseObject);
+            if(success != nil) {
+                success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil]);
+            }
+        }else{
+            if(success!=nil) {
+                success(responseObject);
+            }
+        }
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (fail) {
+            fail(
+            );
+        }
+    }];
+}
+
+//获取AppStore上的版本号
++(void)getAppVersionWithCompletion:(Completion)completion
+                              fail:(FailError)fail{
+    [self getNetWorkRequestUrlString:URL_AppAddress params:nil success:completion fail:fail];
+}
+
+@end

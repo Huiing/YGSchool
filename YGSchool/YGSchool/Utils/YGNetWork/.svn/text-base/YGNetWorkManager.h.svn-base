@@ -1,0 +1,21 @@
+//
+//  YGNetWorkManager.h
+//  YGSchool
+//
+//  Created by faith on 17/2/14.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+typedef void(^Completion)(id responseObject);
+typedef void(^FailError)();
+typedef void(^FileURL)(NSURL *fileURL);
+typedef void(^CompletionHandler)(NSURLResponse *response, NSURL *filePath, NSError *error);
+//定义回调函数
+typedef void(^HttpCallback)(NSDictionary *json,BOOL result);
+@interface YGNetWorkManager : NSObject
+//获取AppStore上的版本号
++(void)getAppVersionWithCompletion:(Completion)completion
+                                  fail:(FailError)fail;
+
+@end

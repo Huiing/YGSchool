@@ -1,0 +1,31 @@
+//
+//  YGAccount.h
+//  YGSchool
+//
+//  Created by faith on 17/2/22.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+typedef NS_ENUM(NSInteger, UserType) {
+    UserTypeTeacher,
+    UserTypeParent,
+};
+@interface YGAccount : NSObject
+@property (nonatomic, assign) NSInteger userId;
+@property (nonatomic, assign) UserType userType;
+@property (nonatomic, assign) BOOL firstLogin;
+@property (nonatomic, strong) NSString *userNumber;
+@property (nonatomic, strong) NSString *userToken;
+@property (nonatomic, strong) NSString *userExpired;
+@property (nonatomic, strong) NSString *userName;
+@property (nonatomic, strong) NSString *schoolId;
+@property (nonatomic, strong) NSString *portraitUrl;
+@property (nonatomic, strong) NSString *sex;
+
+//// 当前登录帐号
+//+ (YGAccount *)currentAccount;
+//// 设置当前登录帐号
+//- (void)setCurrentAccount:(YGAccount *)account;
++ (instancetype)currentAccount;
+@end

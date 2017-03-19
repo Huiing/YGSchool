@@ -1,0 +1,27 @@
+//
+//  YGApiConfig.h
+//  YGSchool
+//
+//  Created by faith on 17/2/14.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#ifndef YGApiConfig_h
+#define YGApiConfig_h
+
+
+#endif /* YGApiConfig_h */
+//AppStore信息的地址
+#define URL_AppAddress @"http://itunes.apple.com/lookup?id=1111171225"
+
+#define IS_IOS_7 (([[[[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."] objectAtIndex:0] intValue] >= 7) ? YES : NO)
+//根据rgb值获取颜色
+#define COLOR(R, G, B, A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+
+#define COLOR_WITH_HEX(hexValue) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16)) / 255.0 green:((float)((hexValue & 0xFF00) >> 8)) / 255.0 blue:((float)(hexValue & 0xFF)) / 255.0 alpha:1.0f]
+
+#define BG_COLOR  COLOR(46,132,196,1)
+
+
+#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
+#define kScreenWidth  [[UIScreen mainScreen] bounds].size.width

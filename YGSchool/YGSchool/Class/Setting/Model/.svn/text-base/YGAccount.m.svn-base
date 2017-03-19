@@ -1,0 +1,30 @@
+//
+//  YGAccount.m
+//  YGSchool
+//
+//  Created by faith on 17/2/22.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#import "YGAccount.h"
+static YGAccount *currentAccount = nil;
+@implementation YGAccount
+//+ (YGAccount *)currentAccount {
+//    return _currentAccount;
+//}
+//
+//- (void)setCurrentAccount:(YGAccount *)account {
+//    _currentAccount = account;
+//}
+//static MySingleton *shareSingleton;
+
++ (instancetype)currentAccount{
+    static  dispatch_once_t  onceToken;
+    dispatch_once ( &onceToken, ^ {
+        currentAccount = [ [ YGAccount alloc ] init ] ;
+    });
+    
+    return currentAccount;
+}
+
+@end

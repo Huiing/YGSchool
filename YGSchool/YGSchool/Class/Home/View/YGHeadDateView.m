@@ -1,0 +1,84 @@
+//
+//  YGHeadDateView.m
+//  AddOrSubDate
+//
+//  Created by faith on 17/2/17.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#import "YGHeadDateView.h"
+#import "YGCommon.h"
+@implementation YGHeadDateView
+- (id)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if(self){
+        self.backgroundColor = COLOR_WITH_HEX(0xa3cbe9);
+        _currentDate = [NSDate date];
+        [self addSubView];
+    }
+    return self;
+}
+- (void)addSubView{
+    [self addSubview:self.previous];
+    [self addSubview:self.nest];
+    [self addSubview:self.timeLbl];
+    [self addSubview:self.randomBtn];
+}
+- (UIButton *)previous{
+    if(!_previous){
+        _previous = [[UIButton alloc] initWithFrame:CGRectMake(30, 10, 15, 15)];
+        [_previous setImage:[UIImage imageNamed:@"previous"] forState:UIControlStateNormal];
+        [_previous addTarget:self action:@selector(previous:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _previous;
+}
+- (UIButton *)nest{
+    if(!_nest){
+        _nest = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-30-15, 10, 15, 15)];
+        [_nest setImage:[UIImage imageNamed:@"nest"] forState:UIControlStateNormal];
+        [_nest addTarget:self action:@selector(nest:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _nest;
+}
+- (UILabel *)timeLbl{
+    if(!_timeLbl){
+        _timeLbl = [[UILabel alloc] initWithFrame:CGRectMake(60, 10, kScreenWidth-120, 15)];
+        _timeLbl.textAlignment = NSTextAlignmentCenter;
+        _timeLbl.font = [UIFont systemFontOfSize:14];
+        _timeLbl.text = [self getDateStringByDate:_currentDate];
+    }
+    return _timeLbl;
+}
+- (UIButton *)randomBtn{
+    if(!_randomBtn){
+        _randomBtn = [[UIButton alloc] initWithFrame:CGRectMake(60, 10, kScreenWidth-120, 15)];
+//        [_randomBtn addTarget:self action:@selector(randomBtn:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _randomBtn;
+}
+- (NSString *)getDateStringByDate:(NSDate *)date{
+    NSArray * arrWeek=[NSArray arrayWithObjects:@"星期日",@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六", nil];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    unsigned unitFlags = NSCalendarUnitYear |
+    NSCalendarUnitMonth |  NSCalendarUnitDay |
+    NSCalendarUnitHour |  NSCalendarUnitMinute |
+    NSCalendarUnitSecond | NSCalendarUnitWeekday;
+    NSDateComponents* comp = [gregorian components: unitFlags
+                                          fromDate:date];
+    NSString *dayString = [NSString stringWithFormat:@"%ld年%ld月%ld日 %@",(long)comp.year,(long)comp.month,(long)comp.day,arrWeek[comp.weekday-1]];
+    return dayString;
+}
+- (void)nest:(UIButton *)sender{
+    _currentDate = [NSDate dateWithTimeInterval:24*60*60 sinceDate:_currentDate];
+    _timeLbl.text = [self getDateStringByDate:_currentDate];
+}
+
+- (void)previous:(UIButton *)sender{
+    _currentDate = [NSDate dateWithTimeInterval:-24*60*60 sinceDate:_currentDate];
+    _timeLbl.text = [self getDateStringByDate:_currentDate];
+}
+- (void)randomBtn:(UIButton *)sender{
+    
+}
+@end

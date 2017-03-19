@@ -1,0 +1,63 @@
+//
+//  YGLeaveListCell.m
+//  YGSchool
+//
+//  Created by faith on 17/2/20.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#import "YGLeaveListCell.h"
+#import "YGApiConfig.h"
+@interface YGLeaveListCell()
+@property(nonatomic, strong)UILabel *reasonLbl;
+@property(nonatomic, strong)UILabel *dayNumberLbl;
+@property(nonatomic, strong)UILabel *startDateLbl;
+@property(nonatomic, strong)UILabel *applyDateLbl;
+@property(nonatomic, strong)UILabel *studentLbl;
+@property(nonatomic, strong)UILabel *statusLbl;
+
+@end
+@implementation YGLeaveListCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+}
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    if(self)
+    {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        [self addSubViews];
+    }
+    return self;
+}
+
+- (void)addSubViews{
+    self.reasonLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 5,kScreenWidth - 10 , 15)];
+    self.dayNumberLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 25, 100, 15)];
+    self.startDateLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 45,kScreenWidth - 10 , 15)];
+    self.applyDateLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 65, kScreenWidth - 10, 15)];
+    self.studentLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 85, kScreenWidth - 10, 15)];
+    self.statusLbl = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth-100, 25, 80, 20)];
+    self.reasonLbl.font = [UIFont systemFontOfSize:14];
+    self.dayNumberLbl.font = [UIFont systemFontOfSize:14];
+    self.startDateLbl.font = [UIFont systemFontOfSize:14];
+    self.applyDateLbl.font = [UIFont systemFontOfSize:14];
+    self.studentLbl.font = [UIFont systemFontOfSize:14];
+    self.statusLbl.font = [UIFont systemFontOfSize:14];
+    [self addSubview:self.reasonLbl];
+    [self addSubview:self.dayNumberLbl];
+    [self addSubview:self.startDateLbl];
+    [self addSubview:self.applyDateLbl];
+    [self addSubview:self.studentLbl];
+    [self addSubview:self.statusLbl];
+    self.reasonLbl.text = [NSString stringWithFormat:@"请假事由:%@",@"有事"];
+    self.dayNumberLbl.text = [NSString stringWithFormat:@"请假时长:%@",@"3天"];
+    self.startDateLbl.text = [NSString stringWithFormat:@"开始日期:%@",@"2017-02-09"];
+    self.applyDateLbl.text = [NSString stringWithFormat:@"申请时间:%@",@"2017-02-09"];
+    self.studentLbl.text = [NSString stringWithFormat:@"学生:%@",@"测试学生"];
+    self.statusLbl.text = [NSString stringWithFormat:@"状态:%@",@"未批准"];
+
+}
+@end

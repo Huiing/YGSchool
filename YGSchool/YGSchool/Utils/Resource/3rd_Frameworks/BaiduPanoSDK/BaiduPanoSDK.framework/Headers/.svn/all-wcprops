@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers
+END
+BaiduPanoData.h
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers/BaiduPanoData.h
+END
+BaiduPanoDataFetcher.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers/BaiduPanoDataFetcher.h
+END
+BaiduPanoramaView.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers/BaiduPanoramaView.h
+END
+BaiduPanoUtils.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers/BaiduPanoUtils.h
+END
+BaiduPanoLabelOverlay.h
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers/BaiduPanoLabelOverlay.h
+END
+BaiduPanoOverlay.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers/BaiduPanoOverlay.h
+END
+BaiduPoiPanoData.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers/BaiduPoiPanoData.h
+END
+BaiduLocationPanoData.h
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers/BaiduLocationPanoData.h
+END
+BaiduPanoImageOverlay.h
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/app/!svn/ver/18/ios/YLDGPS/YLDGPS/3rd_Frameworks/BaiduPanoSDK/BaiduPanoSDK.framework/Headers/BaiduPanoImageOverlay.h
+END

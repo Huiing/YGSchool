@@ -1,0 +1,79 @@
+PODS:
+  - AFNetworking (3.0.4):
+    - AFNetworking/NSURLSession (= 3.0.4)
+    - AFNetworking/Reachability (= 3.0.4)
+    - AFNetworking/Security (= 3.0.4)
+    - AFNetworking/Serialization (= 3.0.4)
+    - AFNetworking/UIKit (= 3.0.4)
+  - AFNetworking/NSURLSession (3.0.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.0.4)
+  - AFNetworking/Security (3.0.4)
+  - AFNetworking/Serialization (3.0.4)
+  - AFNetworking/UIKit (3.0.4):
+    - AFNetworking/NSURLSession
+  - AMap3DMap (4.1.0):
+    - AMapFoundation (~> 1.1)
+  - AMapFoundation (1.1.0)
+  - AMapLocation (2.1.0):
+    - AMapFoundation (~> 1.1)
+  - DACircularProgress (2.3.1)
+  - FSCalendar (2.2.0)
+  - IQKeyboardManager (3.3.7)
+  - Masonry (0.6.4)
+  - MBProgressHUD (0.9.2)
+  - MJExtension (3.0.13)
+  - MJRefresh (3.0.8)
+  - MWPhotoBrowser (2.1.2):
+    - DACircularProgress (~> 2.3)
+    - MBProgressHUD (~> 0.9)
+    - SDWebImage (!= 3.7.2, ~> 3.7)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
+  - XMLDictionary (1.4)
+
+DEPENDENCIES:
+  - AFNetworking (~> 3.0.0-beta.2)
+  - AMap3DMap
+  - AMapLocation
+  - FSCalendar
+  - IQKeyboardManager (~> 3.3.4)
+  - Masonry (~> 0.6.3)
+  - MBProgressHUD (~> 0.9.1)
+  - MJExtension (~> 3.0.9)
+  - MJRefresh (~> 3.0.7)
+  - MWPhotoBrowser
+  - ReactiveCocoa (= 2.5)
+  - SDWebImage (~> 3.7.5)
+  - XMLDictionary (~> 1.4)
+
+SPEC CHECKSUMS:
+  AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  AMap3DMap: 048e1ef05ce87a486d6bf4f09a4e2285356b3a16
+  AMapFoundation: 15db20567e6512422a086a01b42a88b145bc2500
+  AMapLocation: 343abc9ccd971ad27e459f38b5b082eabebf8792
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  FSCalendar: 766367b91bcf2829c492c5ac50a58652c6df4ee8
+  IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
+  Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJRefresh: fafde8f18f4afd66b434331a9beb67a6c0264056
+  MWPhotoBrowser: 5836d7aa041dc05a13de380c246826578adc5ea5
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  XMLDictionary: f9f51601ba76678b594ab485f2b00ec1fed23724
+
+PODFILE CHECKSUM: 7ec425161b00f9f38950f26b5cf144a1e2508287
+
+COCOAPODS: 1.1.1

@@ -1,0 +1,15 @@
+//
+//  YGShow.h
+//  YGSchool
+//
+//  Created by faith on 17/2/15.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+@interface YGShow : NSObject
++(void)showRootViewController;
+#pragma mark - 补全分割线
++ (void)fullSperatorLine:(UITableView *)tableView;
+@end

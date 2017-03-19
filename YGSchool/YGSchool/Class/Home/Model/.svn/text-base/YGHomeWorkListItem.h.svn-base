@@ -1,0 +1,16 @@
+//
+//  YGHomeWorkListItem.h
+//  YGSchool
+//
+//  Created by faith on 17/2/17.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface YGHomeWorkListItem : NSObject
+@property(nonatomic, strong)NSString *course;
+@property(nonatomic, strong)NSString *classes;
+@property(nonatomic, strong)NSArray *imageArr;
+@property(nonatomic, strong)NSString *content;
+@end

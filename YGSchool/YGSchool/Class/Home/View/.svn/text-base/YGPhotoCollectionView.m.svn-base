@@ -1,0 +1,95 @@
+//
+//  YGPhotoCollectionView.m
+//  YGSchool
+//
+//  Created by faith on 17/2/18.
+//  Copyright © 2017年 YDK. All rights reserved.
+//
+
+#import "YGPhotoCollectionView.h"
+#import "YGApiConfig.h"
+#import "UIViewExt.h"
+@implementation YGPhotoCollectionView
+- (id)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout
+{
+    self = [super initWithFrame:frame collectionViewLayout:layout ];
+    if(self)
+    {
+        [self config];
+    }
+    return self;
+}
+- (void)config
+{
+    self.dataSource=self;
+    self.delegate=self;
+    [self setBackgroundColor:[UIColor whiteColor]];
+    [self registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+}
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _imageArr.count+1;
+}
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * CellIdentifier = @"UICollectionViewCell";
+    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    UIImageView *iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (kScreenWidth-150-10)/2, (kScreenWidth-150-10)/2)];
+    [cell addSubview:iconImage];
+    if(indexPath.row < _imageArr.count)
+    {
+        if([_imageArr[indexPath.row] isKindOfClass:[NSString class]])
+        {
+            iconImage.image = [UIImage imageNamed:_imageArr[indexPath.row]];
+        }
+        else
+        {
+            iconImage.image = _imageArr[indexPath.row];
+        }
+        UIImageView *delectImage = [[UIImageView alloc] initWithFrame:CGRectMake(iconImage.right - 20, iconImage.top, 20, 20)];
+        delectImage.image = [UIImage imageNamed:@"delect"];
+        [cell addSubview:delectImage];
+        
+    }
+    else if(indexPath.row ==_imageArr.count)
+    {
+        //        iconImage.backgroundColor = [UIColor redColor];
+        iconImage.image = [UIImage imageNamed:@"add.jpg"];
+    }
+    return cell;
+}
+//定义每个Item 的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake((kScreenWidth-150-10)/2, (kScreenWidth-150-10)/2);
+}
+
+//定义每个UICollectionView 的 margin
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 10.0f;
+}
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 10.0f;
+}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row ==_imageArr.count && self.addBlock)
+    {
+        self.addBlock();
+    }
+    if(indexPath.row < _imageArr.count && self.delectBlock)
+    {
+        [_imageArr removeObject:_imageArr[indexPath.row]];
+        self.delectBlock(indexPath.row);
+        
+    }
+    
+}
+
+@end
