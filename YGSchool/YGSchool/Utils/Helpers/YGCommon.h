@@ -149,6 +149,8 @@
 #import "YGNetWorkManager.h"
 #import "YGTools.h"
 
-
+//体验账号
+#define kAccount @"13632948837"
+#define kPassword @"123456"
 
 

@@ -4,7 +4,7 @@
 //
 //  Created by faith on 17/2/14.
 //  Copyright © 2017年 YDK. All rights reserved.
-//
+
 
 #import "YGAppDelegate.h"
 #import "YGShow.h"
@@ -34,11 +34,11 @@
     NSLog(@"push:%@",pushID);
     [YGLDataManager manager].userData.pushId = pushID;
 //    [[YGLDataManager manager] getUserData];
+    [self rac];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    [self rac];
     [self setRootCtrl];
     return YES;
 }

@@ -170,6 +170,9 @@
 }
 - (void)logout:(UIButton *)sender{
     YGLoginVC *loginVC = [[YGLoginVC alloc] init];
+    NSFileManager *defauleManager = [NSFileManager defaultManager];
+    NSString *path = [[YGLDataManager manager] userCacheFilePath];
+    [defauleManager removeItemAtPath:path error:nil];
     [self presentViewController:loginVC animated:YES completion:nil];
 }
 //调用相册～

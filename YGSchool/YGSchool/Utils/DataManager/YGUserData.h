@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, UserType) {
 @property (nonatomic, copy) NSString                                *headIcon;
 @property (nonatomic, assign) NSString *userType;
 @property (nonatomic, copy) NSString                                *pushId;
-@property (nonatomic, copy) NSString  *login;
+@property (nonatomic, assign) BOOL  login;
 
 //@property (nonatomic, copy) NSString                                *headIcon;
 - (YGUserData *)initWithDictionary:(NSDictionary *)dic;

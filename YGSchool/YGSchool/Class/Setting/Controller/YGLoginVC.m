@@ -64,11 +64,13 @@
     _phoneTXF = [[UITextField alloc] initWithFrame:CGRectMake(10, 31, kScreenWidth - 100, 30)];
     _phoneTXF.font = [UIFont systemFontOfSize:16];
     _phoneTXF.placeholder = @"请输入手机号码";
+    _phoneTXF.text = kAccount;
     [self.loginView addSubview:_phoneTXF];
     _passwordTXF = [[UITextField alloc] initWithFrame:CGRectMake(10, 61, kScreenWidth - 100, 30)];
     _passwordTXF.secureTextEntry = YES;
     _passwordTXF.font = [UIFont systemFontOfSize:16];
     _passwordTXF.placeholder = @"请输入登录密码";
+    _passwordTXF.text = kPassword;
     [self.loginView addSubview:_passwordTXF];
 }
 - (void)addBtn{
@@ -88,7 +90,7 @@
     [self.backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.backBtn setTitle:@"返回" forState:UIControlStateNormal];
     [self.backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.backBtn];
+//    [self.view addSubview:self.backBtn];
     
     _wechatLogin = [[UIButton alloc] initWithFrame:CGRectMake((kScreenWidth - 60)/2, 360, 60, 60)];
     [_wechatLogin setImage:[UIImage imageNamed:@"wechat"] forState:UIControlStateNormal];
@@ -147,7 +149,7 @@
         NSString *password = _passwordTXF.text;
 //        NSString *password = [_passwordTXF.text stringToMD5:_passwordTXF.text];
         [dic setObject:@"login" forKey:@"event_code"];
-        [dic setObject:@"13632948837" forKey:@"user_name"];
+        [dic setObject:_phoneTXF.text forKey:@"user_name"];
         [dic setObject:password forKey:@"password"];
         [dic setObject:userTpye forKey:@"user_type"];
         
@@ -166,6 +168,7 @@
         NSString *str = [YGTools convertToJsonString:dic];
         [parameter setObject:str forKey:@"content"];
         NSLog(@"parameter:%@",parameter);
+        [MBProgressHUD showMessage:@"正在加载" toView:self.view];
         [YGNetWorkManager loginWithParameter:parameter completion:^(id responseObject) {
             if([responseObject[@"code"] integerValue] ==1){
                 NSDictionary *accountDic = responseObject[@"account"];
@@ -180,11 +183,11 @@
                 userData.userType = @"1";
                 NSString *path = [[YGLDataManager manager] userCacheFilePath];
                 NSMutableDictionary *account = [[NSMutableDictionary alloc] initWithDictionary:accountDic];
-                [account setObject:@"1" forKey:@"login"];
+                [account setObject:[NSNumber numberWithBool:YES] forKey:@"login"];
                 [account writeToFile:path atomically:YES];
 
-                userData.login = @"1";
-            
+                userData.login = YES;
+                [YGShow showRootViewController];
             }
             NSLog(@"responseObject:%@",responseObject);
         } fail:^{
@@ -232,8 +235,8 @@
 
 }
 - (void)backAction:(UIButton *)sender{
-    [YGShow showRootViewController];
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)registerAction:(UIButton *)sender{
 //    UIView *backgroundView = [[UIView alloc] init];
