@@ -15,10 +15,16 @@
 @interface YGNoticeVC ()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *noticeTable;
 @property(nonatomic,strong) UITableView *verifyTable;
+@property(nonatomic,strong) NSArray *noticeList;
 @end
 
 @implementation YGNoticeVC
-
+- (NSArray *)noticeList{
+    if(!_noticeList){
+        _noticeList = [[NSMutableArray alloc] init];
+    }
+    return _noticeList;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"公告通知";
@@ -41,6 +47,7 @@
     [YGShow fullSperatorLine:self.noticeTable];
     [YGShow fullSperatorLine:self.verifyTable];
     self.verifyTable.hidden = YES;
+    [self queryNoticeList];
 }
 - (UITableView *)noticeTable{
     if(!_noticeTable){
@@ -63,7 +70,7 @@
     return _verifyTable;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.noticeList.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView.tag ==0){
@@ -79,6 +86,8 @@
         if(!cell){
             cell = [[YGNoticeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
         }
+        NSDictionary *dic = self.noticeList[indexPath.row];
+        [cell setDic:dic];
         return cell;
     }else{
         static NSString *identify = @"YGVerifyCell";
@@ -95,6 +104,8 @@
     UIViewController *vc = nil;
     if(tableView.tag ==0){
         vc = [[YGNoticeDetailVC alloc] init];
+        YGNoticeDetailVC *noticeDetailVC = (YGNoticeDetailVC *)vc;
+        noticeDetailVC.dic = self.noticeList[indexPath.row];
     }else{
         vc = [[YGVerifyDetailVC alloc] init];
     }
@@ -112,12 +123,21 @@
     }
 }
 - (void)queryNoticeList{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:@"noticeSearch" forKey:@"event_code"];
+    [dic setObject:[YGLDataManager manager].userData.accountID forKey:@"account_id"];
+    [dic setObject:[YGLDataManager manager].userData.schoolID forKey:@"school_id"];
     NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
-    [parameter setObject:@"noticeSearch" forKey:@"event_code"];
-    [parameter setObject:@"" forKey:@"account_id"];
-    [parameter setObject:@"" forKey:@"school_id"];
+    NSString *str = [YGTools convertToJsonString:dic];
+    [parameter setObject:str forKey:@"content"];
+
     [YGNetWorkManager querynoticelistWithParameter:parameter completion:^(id responseObject) {
             NSLog(@"responseObject:%@",responseObject);
+        if([responseObject[@"code"] integerValue
+            ] ==1){
+            self.noticeList = responseObject[@"list"];
+            [self.noticeTable reloadData];
+        }
     } fail:^{
         
     }];

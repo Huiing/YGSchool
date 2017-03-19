@@ -13,9 +13,12 @@
     DatePickerHeadView *headView;
     DatePickerView *pickerView;
     YGLeaveShadeView *leaveShadeV;
+    NSArray *studentArray;
 }
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSArray *leaveBills;
+@property(nonatomic,strong) YGShadeView *shadeView;
+
 @end
 
 @implementation YGLeaveVC
@@ -27,6 +30,7 @@
     self.rightBtn.hidden = NO;
     [self.rightBtn setTitle:@"添加" forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
+    studentArray = [NSArray array];
 //    if([YGLDataManager manager].userData.userType == UserTypeParent){
 //        self.rightBtn.hidden = NO;
 //        [self.rightBtn setTitle:@"添加" forState:UIControlStateNormal];
@@ -215,9 +219,11 @@
     leaveShadeV = leaveShadeView;
     __block YGLeaveShadeView *weakLeaveShadeView  = leaveShadeView;
     leaveShadeView.chooseStudentBlock = ^{
+        [self getMyStudentList];
         YGShadeView *shadeView = [[YGShadeView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight)];
+        _shadeView = shadeView;
         __block YGShadeView *weakShadeView  = shadeView;
-        shadeView.titleArray = @[@"选择学生",@"测试学生",@"学生2",@"测试学生45"];
+//        shadeView.titleArray = @[@"选择学生",@"测试学生",@"学生2",@"测试学生45"];
         shadeView.chooseBlock = ^(NSString *title){
             weakLeaveShadeView.chooseStudentTXF.text = title;
             [weakShadeView dissmiss];
@@ -252,24 +258,34 @@
             }else if([leaveShadeView.reasonTXF.text length] ==0){
                 alertMessage = @"请选择请假事由";
             }else{
+                NSString *studentID;
+                for(NSDictionary *dic in studentArray){
+                    if([weakLeaveShadeView.chooseStudentTXF.text isEqualToString:dic[@"name"]]){
+                        studentID = dic[@"student_id"];
+                    }
+                }
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+                [dic setObject:@"leaveAdd" forKey:@"event_code"];
+                [dic setObject:[YGLDataManager manager].userData.accountID forKey:@"account_id"];
+                [dic setObject:studentID forKey:@"student_id"];
+                [dic setObject:weakLeaveShadeView.chooseDateTXF.text forKey:@"date"];
+                [dic setObject:weakLeaveShadeView.leaveDaysTXF.text forKey:@"days"];
+                [dic setObject:weakLeaveShadeView.reasonTXF.text forKey:@"desc"];
+                NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
+                NSString *str = [YGTools convertToJsonString:dic];
+                [parameter setObject:str forKey:@"content"];
+                
+                [YGNetWorkManager addLeaveWithParameter:parameter completion:^(id responseObject) {
+                    NSLog(@"responseObject:%@",responseObject);
+                    
+                } fail:^{
+                    
+                }];
+
                 return ;
             }
             alert.message = alertMessage;
             [self presentViewController:alert animated:YES completion:nil];
-            NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
-            [parameter setObject:@"leaveAdd" forKey:@"event_code"];
-            [parameter setObject:@"" forKey:@"account_id"];
-            [parameter setObject:@"" forKey:@"student_id"];
-            [parameter setObject:@"" forKey:@"date"];
-            [parameter setObject:@"" forKey:@"days"];
-            [parameter setObject:@"" forKey:@"desc"];
-            [YGNetWorkManager addLeaveWithParameter:parameter completion:^(id responseObject) {
-                    NSLog(@"responseObject:%@",responseObject);
-                
-            } fail:^{
-                
-            }];
-            
         }else{
             [weakLeaveShadeView dissmiss];
         }
@@ -305,6 +321,32 @@
         if([responseObject[@"code"] integerValue] ==1){
             self.leaveBills = responseObject[@"dt"];
             [self.tableView reloadData];
+        }
+    } fail:^{
+        
+    }];
+}
+- (void)getMyStudentList{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:@"myStudentList" forKey:@"event_code"];
+    [dic setObject:[YGLDataManager manager].userData.accountID forKey:@"account_id"];
+    NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
+    NSString *str = [YGTools convertToJsonString:dic];
+    [parameter setObject:str forKey:@"content"];
+    [MBProgressHUD showMessage:@"正在加载" toView:self.view];
+    [YGNetWorkManager getMyStudentListWithParameter:parameter completion:^(id responseObject) {
+        NSLog(@"responseObject:%@",responseObject);
+        if([responseObject[@"code"] integerValue] ==1){
+            studentArray = responseObject[@"list"];
+            NSMutableArray *nameArray = [[NSMutableArray alloc] initWithObjects:@"选择学生", nil];
+            for(int i = 0; i< studentArray.count;i++){
+                NSDictionary *dic = studentArray[i];
+                [nameArray addObject:dic[@"name"]];
+                
+            }
+            _shadeView.titleArray = [NSArray arrayWithArray:nameArray];
+            
+            
         }
     } fail:^{
         

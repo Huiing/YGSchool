@@ -95,10 +95,20 @@
 - (void)setDic:(NSDictionary *)dic{
     _dic = dic;
     self.reasonLbl.text = [NSString stringWithFormat:@"请假事由:%@",dic[@"desc"]];
-    self.dayNumberLbl.text = [NSString stringWithFormat:@"请假时长:%@",dic[@"days "]];
+    self.dayNumberLbl.text = [NSString stringWithFormat:@"请假时长:%@天",dic[@"days"]];
     self.startDateLbl.text = [NSString stringWithFormat:@"开始日期:%@",dic[@"date"]];
-    self.applyDateLbl.text = [NSString stringWithFormat:@"申请时间:%@",dic[@"date"]];
-    self.studentLbl.text = [NSString stringWithFormat:@"学生:%@",dic[@"student_name "]];
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *date1 = [dateFormatter dateFromString:dic[@"date"]];
+    NSInteger days = [dic[@"days"] integerValue];
+    NSTimeInterval  interval =24*60*60*days; //1:天数
+//    NSDate *date2 = [date1 initWithTimeIntervalSinceNow:+interval];
+    NSDate *date3 = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date1];
+    NSString *dateString2 = [dateFormatter stringFromDate:date3];
+
+
+    self.applyDateLbl.text = [NSString stringWithFormat:@"申请时间:%@",dateString2];
+    self.studentLbl.text = [NSString stringWithFormat:@"学生:%@",dic[@"student_name"]];
     NSString *status = [dic[@"status"] integerValue]?@"批准":@"未批准";
     self.statusLbl.text = [NSString stringWithFormat:@"状态:%@",status];
 

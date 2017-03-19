@@ -71,7 +71,7 @@
     if(self.scoreArray.count>0){
         NSDictionary *dic = self.scoreArray[indexPath.row];
         cell.nameLbl.text = dic[@"name"];
-        cell.courseLbl.text = dic[@"course "];
+        cell.courseLbl.text = dic[@"course"];
         cell.typeLbl.text = dic[@"type"];
         cell.scoreLbl.text = dic[@"score"];
     }

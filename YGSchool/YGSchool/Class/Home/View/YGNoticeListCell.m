@@ -41,4 +41,12 @@
     self.titleLbl.text = @"测试红点";
     self.timeLbl.text = @"16/12/19 12:40";
 }
+- (void)setDic:(NSDictionary *)dic{
+    _dic = dic;
+    self.titleLbl.text = dic[@"title"];
+    NSInteger time = [dic[@"time"] integerValue];
+    NSString *dateString = [YGTools timestampSwitchTime:time/1000 andFormatter:@"YY-MM-dd HH:mm:ss"];
+    
+    self.timeLbl.text = dateString;
+}
 @end

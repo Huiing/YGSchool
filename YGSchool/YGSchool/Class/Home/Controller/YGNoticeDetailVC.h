@@ -9,5 +9,5 @@
 #import "YGBaseViewController.h"
 
 @interface YGNoticeDetailVC : YGBaseViewController
-
+@property(nonatomic, strong) NSDictionary *dic;
 @end
